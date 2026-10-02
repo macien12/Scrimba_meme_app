@@ -2,6 +2,7 @@ import { catsData } from '/data.js'
 
 const emotionRadios = document.getElementById('emotion-radios')
 const getImageBtn = document.getElementById('get-image-btn')
+const gifsOnlyOption = document.getElementById('gifs-only-option')
 
 emotionRadios.addEventListener('change', highlightCheckedOption)
 
@@ -13,15 +14,31 @@ function highlightCheckedOption(e){
         radio.classList.remove('highlight')
     }
     document.getElementById(e.target.id).parentElement.classList.add('highlight')
-} 
+}
 
-function getMatchingCatsArray(){
-
+function getMatchingCatsArray(){     
     if(document.querySelector('input[type="radio"]:checked')){
         const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
-        console.log(selectedEmotion)
-    }
-    
+        const isGif = gifsOnlyOption.checked
+        
+        const matchingCatsArray = catsData.filter(function(cat){
+            if(isGif){
+                return cat.emotionTags.includes(selectedEmotion) && cat.isGif
+            }
+            else{
+                return cat.emotionTags.includes(selectedEmotion)
+            }
+/*
+Challenge:
+1. Change the .filter() method's function so it returns an 
+   array that only has GIFs if the 'GIFs only' option is 
+   checked. If the 'GIFs only' option is not checked, it
+   should return an array of all matches as it does now.
+*/ 
+            
+        })
+        return matchingCatsArray
+    }  
 }
 
 function getEmotionsArray(cats){
