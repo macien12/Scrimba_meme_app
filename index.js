@@ -100,6 +100,15 @@ function renderEmotionsRadios(cats){
 
 renderEmotionsRadios(catsData)
 
+window.addEventListener('click', function(e) {
+    // If the modal is open and the click occurred outside the modal and outside the open button
+    if (memeModal.style.display === 'flex') {
+        if (!memeModal.contains(e.target) && e.target !== getImageBtn) {
+            closeModal()
+        }
+    }
+})
+
 
 
 
