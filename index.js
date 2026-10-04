@@ -26,27 +26,40 @@ function closeModal(){
 }
 
 function renderCat(){
-    const catObject = getSingleCatObject()
-    memeModalInner.innerHTML =  `
-        <img 
-        class="cat-img" 
-        src="./images/${catObject.image}"
-        alt="${catObject.alt}"
-        >
+const catObjects = getTwoCatObjects()
+    if (catObjects.length === 0) return
+
+    // Generate HTML for each cat image
+    let catsHtml = ''
+    for (let cat of catObjects) {
+        catsHtml += `
+            <img 
+                class="cat-img" 
+                src="./images/${cat.image}"
+                alt="${cat.alt}"
+            >
         `
+    }
+
+    memeModalInner.innerHTML = catsHtml
     memeModal.style.display = 'flex'
 }
 
-function getSingleCatObject(){
-    const catsArray = getMatchingCatsArray()
+
+function getTwoCatObjects(){
+const catsArray = getMatchingCatsArray()
+    if (!catsArray || catsArray.length === 0) return []
+
+    // If there is only 1 match, return it in an array
+    if (catsArray.length === 1) {
+        return [catsArray[0]]
+    }
+
+    // Shuffle a shallow copy so we don't mutate the original data
+    const shuffled = catsArray.slice().sort(() => 0.5 - Math.random())
     
-    if(catsArray.length === 1){
-        return catsArray[0]
-    }
-    else{
-        const randomNumber = Math.floor(Math.random() * catsArray.length)
-        return catsArray[randomNumber]
-    }
+    // Pick the first 2 distinct items
+    return shuffled.slice(0, 2)
 }
 
 function getMatchingCatsArray(){     
