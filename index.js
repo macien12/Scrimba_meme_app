@@ -113,13 +113,16 @@ function renderEmotionsRadios(cats){
 
 renderEmotionsRadios(catsData)
 
-window.addEventListener('click', function(e) {
-    // If the modal is open and the click occurred outside the modal and outside the open button
-    if (memeModal.style.display === 'flex') {
-        if (!memeModal.contains(e.target) && e.target !== getImageBtn) {
-            closeModal()
-        }
+memeModal.addEventListener('click', function(e) {
+    // If the click lands on the backdrop itself (not inside the card)
+    if (e.target === memeModal) {
+        closeModal()
     }
+})
+
+emotionRadios.addEventListener('change', function(e) {
+    highlightCheckedOption(e)
+    getImageBtn.removeAttribute('disabled')
 })
 
 

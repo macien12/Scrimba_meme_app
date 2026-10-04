@@ -114,21 +114,16 @@ input[type="radio"]{
 /* modal */
 
 .meme-modal{
-display: none; /* flex when displayed */
+    display: none;
     position: fixed;
-    margin: auto;
-    top: 80px;
+    top: 0;
     left: 0;
-    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); 
     align-items: center;
     justify-content: center;
-    border: 1px solid #67595e;
-    border-radius: 5px;
-    width: min(780px, 92vw); /* expanded from 420px */
-    min-height: 400px;
-    background-color: #fff0ee;
-    padding: 20px;
-    box-sizing: border-box;
+    z-index: 1000;
 }
 
 .cat-img{
@@ -156,11 +151,23 @@ display: none; /* flex when displayed */
 }
 
 #meme-modal-inner {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    background-color: #fff0ee;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #67595e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    animation: modalAppear 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .cat-img {
@@ -168,4 +175,33 @@ display: none; /* flex when displayed */
     max-height: 360px;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.get-image-btn {
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.get-image-btn:hover:not(:disabled) {
+    background-color: #53474c;
+    transform: translateY(-2px);
+}
+
+.get-image-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.radio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px; 
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+}
+
+.radio:hover:not(.highlight) {
+    background-color: #f7ebe9;
 }
